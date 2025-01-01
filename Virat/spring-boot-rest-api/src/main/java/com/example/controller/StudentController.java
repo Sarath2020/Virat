@@ -7,7 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @RestController
@@ -50,6 +52,11 @@ public class StudentController {
     @PostMapping("getAllStudentsByIds")
     public List<Student> getAllStudentsByIds(@RequestBody List<Long> ids) {
         return studentService.getAllStudentsByIds(ids);
+    }
+
+    @PostMapping("/readCircuits")
+    public List<String> readCircuits(@RequestPart(value = "file", required = false)MultipartFile file) throws Exception {
+        return studentService.getCircuitsFromFile3(file);
     }
 
 }
